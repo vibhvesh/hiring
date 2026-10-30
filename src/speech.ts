@@ -55,33 +55,74 @@ export function speak(text: string, enabled = true): { done: Promise<void>; stop
 
 export interface Listener { stop: () => void }
 
-/** Continuous recognition. Calls onText with the full answer so far plus lowest confidence seen. */
-export function listen(onText: (text: string, confidence: number | null) => void, onFail: (msg: string) => void): Listener | null {
-  const C = Ctor()
+export const isAndroid = () => typeof navigator !== 'undefined' && /android/i.test(navigator.userAgent)
+
+export interface ListenOpts {
+  onText: (text: string, confidence: number | null) => void
+  onFail: (msg: string) => void
+  onState?: (s: 'listening' | 'idle') => void
+  android?: boolean
+  maxRestarts?: number
+  ctor?: new () => Rec
+}
+
+const FAIL_MSG = 'Voice not available – please type your answer.'
+
+/**
+ * Speech recognition with Android Chrome workarounds: continuous=false there (continuous is buggy),
+ * auto-restart on end while still listening, limited retries on errors, interim text reported live.
+ * Text from earlier sessions is kept so restarts don't wipe the answer.
+ */
+export function listen(o: ListenOpts): Listener | null {
+  const C = o.ctor ?? Ctor()
   if (!C) return null
+  const android = o.android ?? isAndroid()
+  const max = o.maxRestarts ?? 4
   let active = true
-  let finals = ''
+  let kept = ''          // finals from finished sessions
+  let finals = ''        // finals in current session
   let minConf: number | null = null
-  const r: Rec = new C()
-  r.lang = 'en-IN'
-  r.continuous = true
-  r.interimResults = true
-  r.onresult = (e: any) => {
-    let interim = ''
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const res = e.results[i]
-      if (res.isFinal) {
-        finals += ' ' + res[0].transcript
-        const c = res[0].confidence
-        if (typeof c === 'number' && c > 0) minConf = minConf == null ? c : Math.min(minConf, c)
-      } else interim += ' ' + res[0].transcript
+  let fails = 0
+  let heard = false
+  let r: Rec = null
+  const emit = (interim: string) => o.onText((kept + finals + interim).replace(/\s+/g, ' ').trim(), minConf)
+  const fail = (msg = FAIL_MSG) => { active = false; o.onState?.('idle'); o.onFail(msg) }
+  const startOne = () => {
+    if (!active) return
+    r = new C()
+    r.lang = 'en-IN'
+    r.continuous = !android
+    r.interimResults = true
+    r.maxAlternatives = 1
+    r.onresult = (e: any) => {
+      heard = true
+      fails = 0
+      let interim = ''
+      finals = ''
+      for (let i = 0; i < e.results.length; i++) {
+        const res = e.results[i]
+        if (res.isFinal) {
+          finals += ' ' + res[0].transcript
+          const c = res[0].confidence
+          if (typeof c === 'number' && c > 0) minConf = minConf == null ? c : Math.min(minConf, c)
+        } else interim += ' ' + res[0].transcript
+      }
+      emit(interim)
     }
-    onText((finals + interim).trim(), minConf)
+    r.onerror = (e: any) => {
+      const err = e?.error
+      if (err === 'not-allowed' || err === 'service-not-allowed') return fail('Microphone is blocked. Please type your answer.')
+      if (err !== 'no-speech' && err !== 'aborted') fails++ // network, audio-capture, etc.
+      else if (!heard) fails++
+    }
+    r.onend = () => {
+      kept += finals; finals = ''
+      if (!active) return
+      if (fails > max) return fail()
+      setTimeout(startOne, android ? 250 : 50)
+    }
+    try { r.start(); o.onState?.('listening') } catch { fails++; if (fails > max) fail(); else setTimeout(startOne, 300) }
   }
-  r.onerror = (e: any) => {
-    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { active = false; onFail('Microphone is blocked. Please type your answers instead.') }
-  }
-  r.onend = () => { if (active) try { r.start() } catch { /* already started */ } }
-  try { r.start() } catch { return null }
-  return { stop: () => { active = false; try { r.stop() } catch { /* ignore */ } } }
+  startOne()
+  return { stop: () => { active = false; o.onState?.('idle'); try { r?.abort ? r.abort() : r?.stop() } catch { /* ignore */ } } }
 }

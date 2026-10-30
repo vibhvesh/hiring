@@ -3,14 +3,17 @@ export interface Recording { stream: MediaStream | null; stop: () => Promise<Blo
 const TYPES = ['video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4', 'audio/webm', 'audio/mp4']
 
 /** Ask for camera + mic; fall back to mic only; fall back to nothing. Never throws. */
-export async function startRecording(): Promise<Recording> {
+export async function startRecording(videoOnly = false): Promise<Recording> {
   let stream: MediaStream | null = null
-  for (const c of [{ video: { width: 640, height: 480, facingMode: 'user' }, audio: true }, { audio: true }]) {
+  const v = { width: 640, height: 480, facingMode: 'user' }
+  // On Android Chrome, a MediaRecorder holding the mic can starve SpeechRecognition, so record video only there.
+  const tries: MediaStreamConstraints[] = videoOnly ? [{ video: v, audio: false }] : [{ video: v, audio: true }, { audio: true }]
+  for (const c of tries) {
     try { stream = await navigator.mediaDevices.getUserMedia(c); break } catch { /* try next */ }
   }
   if (!stream || typeof MediaRecorder === 'undefined') return { stream, hasVideo: false, stop: async () => null }
   const hasVideo = stream.getVideoTracks().length > 0
-  const mimeType = TYPES.filter((t) => hasVideo || t.startsWith('audio')).find((t) => MediaRecorder.isTypeSupported(t))
+  const mimeType = TYPES.filter((t) => (hasVideo || t.startsWith('audio')) && (stream!.getAudioTracks().length > 0 || !t.includes('opus'))).find((t) => MediaRecorder.isTypeSupported(t))
   const chunks: Blob[] = []
   let rec: MediaRecorder
   try { rec = new MediaRecorder(stream, mimeType ? { mimeType, videoBitsPerSecond: 500_000 } : undefined) } catch { return { stream, hasVideo, stop: async () => null } }

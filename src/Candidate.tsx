@@ -7,7 +7,7 @@ import { llmFacts, warmUpLLM } from './llm.ts'
 import { startRecording, type Recording } from './recorder.ts'
 import { download, makeZip, zipName } from './report.ts'
 import SamplePicker from './SamplePicker.tsx'
-import { canListen, listen, speak, unlockSpeech, type Listener } from './speech.ts'
+import { canListen, isAndroid, listen, speak, unlockSpeech, type Listener } from './speech.ts'
 
 const TEST = new URLSearchParams(location.search).has('test') // used by automated tests: no voice, mic or camera
 const LIMIT = config.maxMinutes * 60_000
@@ -23,6 +23,8 @@ export default function Candidate({ code }: { code: string }) {
   const [listening, setListening] = useState(false)
   const [speaking, setSpeaking] = useState(false)
   const [micNote, setMicNote] = useState('')
+  const [heard, setHeard] = useState('')
+  const [thinking, setThinking] = useState(false)
   const [left, setLeft] = useState(LIMIT)
   const [zip, setZip] = useState<{ blob: Blob; name: string } | null>(null)
   const [earlier] = useState<Result | null>(() => { try { return invite ? JSON.parse(localStorage.getItem(partialKey(invite.id)) ?? 'null') : null } catch { return null } })
@@ -60,6 +62,27 @@ export default function Candidate({ code }: { code: string }) {
 
   const stopEar = () => { ear.current?.stop(); ear.current = null; setListening(false); clearTimeout(silence.current) }
 
+  function startEar() {
+    stopEar()
+    if (TEST || !canListen() || speaking || iv.current?.done) return
+    window.speechSynthesis?.cancel() // never synthesis and recognition at the same time
+    setMicNote('')
+    const base = draftRef.current ? draftRef.current + ' ' : ''
+    ear.current = listen({
+      onText: (text, c) => {
+        if (!text) return
+        setD(base + text)
+        setHeard(text)
+        conf.current = c
+        clearTimeout(silence.current)
+        silence.current = window.setTimeout(() => submit(draftRef.current, false), config.silenceSeconds * 1000)
+      },
+      onFail: (m) => { setMicNote(m); ear.current = null; setListening(false) },
+      onState: (s) => setListening(s === 'listening'),
+    })
+    if (!ear.current) setMicNote('Voice not available – please type your answer.')
+  }
+
   async function turn() {
     const i = iv.current!
     setAiText(i.prompt)
@@ -69,22 +92,18 @@ export default function Candidate({ code }: { code: string }) {
     await speak(i.prompt, !TEST).done
     setSpeaking(false)
     busy.current = false
+    setThinking(false)
     if (i.done) return finish()
-    if (!TEST && canListen() && !micNote) {
-      ear.current = listen((text, c) => {
-        setD(text)
-        conf.current = c
-        clearTimeout(silence.current)
-        silence.current = window.setTimeout(() => submit(draftRef.current, false), config.silenceSeconds * 1000)
-      }, (m) => { setMicNote(m); stopEar() })
-      setListening(!!ear.current)
-    }
+    setHeard('')
+    // speak() resolved via onend or its timeout fallback; give Android a moment to release audio
+    if (!TEST && canListen()) setTimeout(() => { if (!busy.current && !iv.current?.done) startEar() }, isAndroid() ? 400 : 100)
   }
 
   async function submit(text: string, typed: boolean) {
     const i = iv.current
     if (!i || i.done || busy.current || !text.trim()) return
     busy.current = true
+    setThinking(true)
     stopEar()
     if ((i.phase === 'intro' || i.phase === 'retry') && config.useWebLLM) {
       const h = await llmFacts(text)
@@ -98,7 +117,7 @@ export default function Candidate({ code }: { code: string }) {
     unlockSpeech()
     warmUpLLM()
     setStage('live')
-    rec.current = TEST ? null : await startRecording()
+    rec.current = TEST ? null : await startRecording(isAndroid())
     if (rec.current?.hasVideo && videoEl.current) { videoEl.current.srcObject = rec.current.stream; videoEl.current.dataset.on = '1' }
     if (!TEST && !canListen()) setMicNote("Voice answers aren't supported in this browser. Please type your answers.")
     t0.current = Date.now()
@@ -165,13 +184,14 @@ export default function Candidate({ code }: { code: string }) {
       <video ref={videoEl} className="selfie" autoPlay muted playsInline />
       <main className="card">
         <p className={`ai ${speaking ? 'pulse' : ''}`} data-testid="ai">{aiText}</p>
-        <p className="muted small">{speaking ? 'Speaking…' : listening ? 'Listening… pause when you are done, or press Send.' : 'Type your answer below.'}</p>
+        <p className="muted small">{speaking ? 'Speaking…' : listening ? (heard ? `Heard: ${heard.slice(-60)}` : 'Listening… pause when you are done, or press Send.') : TEST || !canListen() || micNote ? 'Voice not available – please type.' : 'Type your answer, or tap to speak.'}</p>
         {micNote && <p className="warn">{micNote}</p>}
         <textarea value={draft} onChange={(e) => { stopEar(); setD(e.target.value) }} placeholder="Your answer" rows={4} aria-label="Your answer"
           onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(draft, !listening) } }} />
         <div className="row between">
           <button className="quiet" onClick={endEarly}>End interview</button>
-          <button className="primary" disabled={speaking || !draft.trim()} onClick={() => submit(draft, !listening && conf.current == null)}>Send</button>
+          {!TEST && canListen() && <button className="quiet" disabled={speaking} onClick={() => (listening ? stopEar() : startEar())}>{listening ? 'Stop mic' : '🎤 Tap to speak'}</button>}
+          <button className="primary" disabled={thinking || !draft.trim()} onClick={() => { window.speechSynthesis?.cancel(); submit(draft, !listening && conf.current == null) }}>Send</button>
         </div>
       </main>
     </div>
