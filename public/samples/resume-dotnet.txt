@@ -1,0 +1,18 @@
+Fatima Khan
+Senior .NET Developer | Noida | fatima.khan@example.com
+
+SUMMARY
+Senior .NET Developer with 8 years of experience in C#, ASP.NET Core and Azure for insurance platforms.
+
+EXPERIENCE
+Senior .NET Developer, InsureTech Global (2020 – present)
+- Built claims APIs in ASP.NET Core and Entity Framework on SQL Server.
+- Moved services to Azure App Service and Azure Functions; set up Azure DevOps pipelines.
+.NET Developer, Softlink (2018 – 2020)
+- Built WinForms and Web API applications in C#.
+
+SKILLS
+C#, .NET 8, ASP.NET Core, Entity Framework, SQL Server, Azure, Azure DevOps, Angular, Git
+
+EDUCATION
+MCA, Amity University, 2018

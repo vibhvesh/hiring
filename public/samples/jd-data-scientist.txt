@@ -1,0 +1,7 @@
+Job title: Data Scientist
+Location: Chennai
+Experience: 2-5 years
+
+Build forecasting and recommendation models.
+Must have: Python, pandas, machine learning, SQL.
+Nice to have: Spark, cloud experience.

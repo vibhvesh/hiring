@@ -1,0 +1,19 @@
+Rahul Verma
+Senior Software Engineer (Backend) | Pune | rahul.verma@example.com
+
+SUMMARY
+Senior Software Engineer with 7 years of experience in Java, Spring Boot and microservices for banking and e-commerce.
+
+EXPERIENCE
+Senior Software Engineer, PayStream (2021 – present)
+- Designed payment microservices in Java 17 and Spring Boot handling 2M transactions a day.
+- Moved batch jobs to Kafka event streams; reduced settlement delay from hours to minutes.
+- Tuned PostgreSQL queries and added Redis caching.
+Software Engineer, Infotech Solutions (2017 – 2021)
+- Built REST APIs with Spring and Hibernate on Oracle.
+
+SKILLS
+Java, Spring Boot, Hibernate, Microservices, Kafka, PostgreSQL, Oracle, Redis, Docker, Jenkins, Git
+
+EDUCATION
+B.Tech Information Technology, COEP, 2017

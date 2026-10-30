@@ -1,0 +1,7 @@
+Job title: Frontend Developer (React)
+Location: Bengaluru (hybrid)
+Experience: 3-6 years
+
+We are looking for a Frontend Developer to build fast, accessible web apps.
+Must have: React, TypeScript, HTML/CSS, REST APIs.
+Nice to have: Next.js, Jest, design systems.

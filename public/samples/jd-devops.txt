@@ -1,0 +1,7 @@
+Job title: DevOps Engineer
+Location: Hyderabad (remote friendly)
+Experience: 4-8 years
+
+Own our cloud platform and delivery pipelines.
+Must have: AWS, Kubernetes, Terraform, CI/CD, Linux.
+Nice to have: Docker, Python scripting.

@@ -1,0 +1,18 @@
+Suresh Menon
+Principal Architect | Bengaluru | suresh.menon@example.com
+
+SUMMARY
+Principal Architect with 15 years of experience designing distributed systems, microservices and cloud platforms on AWS and Azure.
+
+EXPERIENCE
+Principal Architect, GlobalRetail Digital (2018 – present)
+- Led architecture for a 120-service microservices platform on Kubernetes and Kafka.
+- Defined system design standards, API guidelines and multi-region disaster recovery.
+Technical Lead, Wipro (2011 – 2018)
+- Led Java and Spring teams of 12 engineers.
+
+SKILLS
+System design, Microservices, AWS, Azure, Kubernetes, Kafka, Java, Spring, Go, PostgreSQL, MongoDB, Terraform
+
+EDUCATION
+M.Tech Computer Science, IIT Madras, 2011

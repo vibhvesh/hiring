@@ -1,0 +1,18 @@
+Ananya Iyer
+Data Scientist | Chennai | ananya.iyer@example.com
+
+SUMMARY
+Data Scientist with 3 years of experience in Python, pandas and machine learning for retail demand forecasting.
+
+EXPERIENCE
+Data Scientist, RetailIQ Analytics (2023 – present)
+- Built demand forecasting models with scikit-learn and XGBoost; improved accuracy by 18%.
+- Wrote data pipelines in Python, pandas and SQL on BigQuery.
+Data Analyst, Numera (2022 – 2023)
+- Built dashboards and churn analysis with SQL and Python.
+
+SKILLS
+Python, pandas, NumPy, scikit-learn, TensorFlow, SQL, Spark, Airflow, Git
+
+EDUCATION
+M.Sc. Statistics, University of Madras, 2022

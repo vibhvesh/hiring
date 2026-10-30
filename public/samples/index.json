@@ -1,0 +1,77 @@
+[
+ {
+  "file": "resume-react-frontend.txt",
+  "title": "Priya Sharma \u2013 React Frontend Developer (4 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-java-backend.txt",
+  "title": "Rahul Verma \u2013 Java Backend Engineer (7 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-python-data.txt",
+  "title": "Ananya Iyer \u2013 Python Data Scientist (3 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-devops.txt",
+  "title": "Vikram Singh \u2013 DevOps Engineer (6 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-qa-automation.txt",
+  "title": "Sneha Patil \u2013 QA Automation Engineer (5 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-android.txt",
+  "title": "Arjun Nair \u2013 Android Developer (3 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-dotnet.txt",
+  "title": "Fatima Khan \u2013 .NET Developer (8 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-fresher.txt",
+  "title": "Rohan Das \u2013 Fresher, Computer Science graduate",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-senior-architect.txt",
+  "title": "Suresh Menon \u2013 Principal Solutions Architect (15 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-fullstack.txt",
+  "title": "Karan Mehta \u2013 Full-Stack Developer, MERN (5 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "resume-ios.txt",
+  "title": "Meera Joshi \u2013 iOS Developer (2 yrs)",
+  "kind": "resume"
+ },
+ {
+  "file": "jd-frontend-react.txt",
+  "title": "Job description \u2013 Frontend Developer (React)",
+  "kind": "jd"
+ },
+ {
+  "file": "jd-java-backend.txt",
+  "title": "Job description \u2013 Java Backend Engineer",
+  "kind": "jd"
+ },
+ {
+  "file": "jd-devops.txt",
+  "title": "Job description \u2013 DevOps Engineer",
+  "kind": "jd"
+ },
+ {
+  "file": "jd-data-scientist.txt",
+  "title": "Job description \u2013 Data Scientist",
+  "kind": "jd"
+ }
+]

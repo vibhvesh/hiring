@@ -1,0 +1,18 @@
+Sneha Patil
+QA Engineer | Mumbai | sneha.patil@example.com
+
+SUMMARY
+QA Engineer with 5 years of experience in manual testing and test automation with Selenium, Java and TestNG.
+
+EXPERIENCE
+QA Engineer, ShopKart (2022 – present)
+- Built a Selenium WebDriver framework with page objects; 600 regression tests in CI.
+- Added API tests with REST Assured; logged and triaged defects in Jira.
+Test Engineer, QualityFirst (2021 – 2022)
+- Wrote test cases and ran regression testing for mobile and web releases.
+
+SKILLS
+Selenium, Java, TestNG, Cypress, REST Assured, SQL, Jira, manual testing, Jenkins
+
+EDUCATION
+B.Sc. Computer Science, Mumbai University, 2021

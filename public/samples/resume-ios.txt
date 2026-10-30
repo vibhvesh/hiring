@@ -1,0 +1,16 @@
+Meera Joshi
+iOS Developer | Jaipur | meera.joshi@example.com
+
+SUMMARY
+iOS Developer with 2 years of experience building Swift and SwiftUI apps.
+
+EXPERIENCE
+iOS Developer, HealthNest (2024 – present)
+- Built a health tracking app in Swift and SwiftUI with Core Data.
+- Integrated REST APIs and push notifications.
+
+SKILLS
+Swift, SwiftUI, iOS, Core Data, REST APIs, Git
+
+EDUCATION
+B.Tech Computer Science, Manipal University Jaipur, 2024

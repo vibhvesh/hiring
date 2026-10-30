@@ -1,0 +1,19 @@
+Rohan Das
+Fresher | Kolkata | rohan.das@example.com
+
+SUMMARY
+Recent graduate in Computer Science looking for my first role as a software developer. Comfortable with Java, Python and SQL.
+
+PROJECTS
+- Library management system in Java with MySQL (final year project).
+- Weather app in JavaScript and HTML/CSS using a public REST API.
+- Python scripts to clean CSV data with pandas.
+
+INTERNSHIP
+Software Intern, TechNova (2 months, 2025) – fixed bugs in a Django admin panel.
+
+SKILLS
+Java, Python, SQL, MySQL, JavaScript, HTML, CSS, Git
+
+EDUCATION
+B.Tech Computer Science, MAKAUT, 2026

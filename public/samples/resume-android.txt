@@ -1,0 +1,18 @@
+Arjun Nair
+Android Developer | Kochi | arjun.nair@example.com
+
+SUMMARY
+Android Developer with 3 years of experience building Kotlin apps with Jetpack Compose and MVVM.
+
+EXPERIENCE
+Android Developer, RideEasy (2023 – present)
+- Rebuilt the rider app in Kotlin and Jetpack Compose; crash-free sessions up to 99.6%.
+- Added offline mode with Room and coroutines.
+Associate Android Developer, AppWorks (2022 – 2023)
+- Maintained Java Android apps and REST API integration.
+
+SKILLS
+Kotlin, Android, Jetpack Compose, Coroutines, Room, Retrofit, Java, Firebase, Git
+
+EDUCATION
+B.Tech Computer Science, CUSAT, 2022

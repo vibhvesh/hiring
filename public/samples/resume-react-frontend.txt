@@ -1,0 +1,19 @@
+Priya Sharma
+Frontend Developer | Bengaluru | priya.sharma@example.com
+
+SUMMARY
+Frontend Developer with 4 years of experience building responsive web apps with React, TypeScript and modern CSS.
+
+EXPERIENCE
+Frontend Developer, Finlytics Pvt Ltd (2022 – present)
+- Built a customer dashboard in React and TypeScript used by 40,000 users.
+- Cut bundle size 35% with code splitting and lazy loading.
+- Integrated REST APIs and wrote unit tests with Jest and React Testing Library.
+Junior Web Developer, PixelCraft Studio (2020 – 2022)
+- Built marketing pages with HTML, CSS, Sass and JavaScript.
+
+SKILLS
+React, TypeScript, JavaScript, HTML, CSS, Tailwind, Redux, REST APIs, Jest, Git
+
+EDUCATION
+B.E. Computer Science, VTU, 2020

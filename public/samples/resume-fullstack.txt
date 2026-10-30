@@ -1,0 +1,18 @@
+Karan Mehta
+Full Stack Developer | Ahmedabad | karan.mehta@example.com
+
+SUMMARY
+Full Stack Developer with 5 years of experience in React, Node.js, Express and MongoDB, shipping SaaS products end to end.
+
+EXPERIENCE
+Full Stack Developer, SaaSly (2022 – present)
+- Built a multi-tenant billing product with React, Next.js, Node.js and MongoDB.
+- Added GraphQL APIs and Redis caching; deployed with Docker on AWS.
+Web Developer, CodeHive (2021 – 2022)
+- Built Express REST APIs and React front ends for clients.
+
+SKILLS
+React, Next.js, Node.js, Express, MongoDB, TypeScript, GraphQL, Redis, Docker, AWS, Git
+
+EDUCATION
+B.E. Information Technology, Gujarat University, 2021

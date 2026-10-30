@@ -1,0 +1,19 @@
+Vikram Singh
+DevOps Engineer | Hyderabad | vikram.singh@example.com
+
+SUMMARY
+DevOps Engineer with 6 years of experience automating cloud infrastructure on AWS with Terraform, Docker and Kubernetes.
+
+EXPERIENCE
+DevOps Engineer, CloudNine Tech (2021 – present)
+- Ran 12 EKS Kubernetes clusters; moved deployments to Helm and GitHub Actions.
+- Wrote Terraform modules for VPC, RDS and IAM across 4 environments.
+- Cut AWS spend 22% with right-sizing and spot instances.
+System Administrator, NetCore (2019 – 2021)
+- Managed Linux servers, Bash scripting, Jenkins pipelines.
+
+SKILLS
+AWS, Kubernetes, Docker, Terraform, Ansible, Jenkins, GitHub Actions, Linux, Bash, Prometheus, Grafana
+
+EDUCATION
+B.Tech Electronics, JNTU, 2019
